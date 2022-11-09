@@ -49,6 +49,31 @@ app.post('/add', function (req, res) {
     res.send(db.get('users').value());
 });
 
+// get "account"
+app.get('/accounts', function (req, res) {
+    res.send(db.get('users').value());
+});
+
+//post "account"
+app.post('/accounts', function (req, res) {
+    let user = {
+        'name': req.body.name,
+        'dob': req.body.dob,
+        'email': req.body.email,
+        'username': req.body.username,
+        'password': req.body.password,
+        'phone': req.body.phone,
+        'streetaddress': req.body.streetaddress,
+        'citystatezip': req.body.citystatezip,
+        'latitude': req.body.latitude,
+        'longitude': req.body.longitude,
+        'avatar': faker.internet.avatar()
+    }
+    db.get('users').push(user).write();
+    console.log(db.get('users').value());
+    res.send(db.get('users').value());
+});
+
 // start server
 // -----------------------
 app.listen(port, function () {
